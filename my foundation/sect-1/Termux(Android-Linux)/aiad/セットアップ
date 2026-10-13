@@ -1,0 +1,20 @@
+先ずは
+
+# パッケージの最新化
+pkg update 
+pkg upgrade -y
+
+# 共有ストレージへのアクセス（初回のみ）
+termux-setup-storage
+ls ~/storage/shared
+
+# 必要パッケージの導入（Git / OpenSSH / GitHub CLI）
+pkg install git 
+pkg install　openssh
+
+
+パスワードは自分は「所属苗字」
+Node.jsのインストール
+
+pkg install nodejs
+
