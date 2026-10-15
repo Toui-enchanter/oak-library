@@ -1,2 +1,15 @@
+Termux側の操作
 
 pkg install　openssh
+
+passwdでパスワード設定
+whoamiで名前の確認
+sshdでサーバーを立てる！
+
+PC側の操作
+
+ターミナルで以下のコマンドを入力
+ssh -p 8022(スペース)whoami名前@スマホのIP(設定からが手っ取り早い)
+→　Yes
+→　passwdで設定したパスワードを入れる
+完了！🎉
