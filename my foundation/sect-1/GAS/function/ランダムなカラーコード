@@ -1,0 +1,22 @@
+/**
+ * ランダムなカラーコード（数値）を生成する関数
+ */
+function getRandomColor() {
+  return Math.floor(Math.random() * 16777215);
+}
+
+  //  Webhookに送信するペイロードの作成（Discordフォーマット）
+        const payload = {
+          content: `本文(それそのものの名前)`,
+          embeds: [
+            {
+            //メールの場合
+              title: subject.substring(0, 256), // タイトル制限: 256文字
+              fields: [
+                { name: "送信元", value: sender.substring(0, 1024), inline: true },
+                { name: "受信日時", value: date.toLocaleString("ja-JP"), inline: true },
+                { name: "本文プレビュー", value: body || "(本文なし)" }
+              ],
+              color: getRandomColor()
+            }
+          ]
