@@ -58,3 +58,5 @@ ssh -T git@github.com
 Gitclone
 git clone git@github.com:ユーザー名/リポジトリ.git
 
+ssh -T git@github.com
+Git連携
