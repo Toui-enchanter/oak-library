@@ -1,3 +1,7 @@
+Indexの初めに
+
+const{ActivityType} = require('discord.js');を入れ 
+
 起動後に以下のコードを入れる
 //起動時
 client.once("ready", () => {
@@ -24,3 +28,11 @@ Playing　:何々をプレイ中
 Listening　：何々を再生中
 Watching　：何々を視聴中
 Competing　：何々に参戦中
+
+statusは
+status: "online"
+status: "idle"
+status: "dnd"
+status: "invisible"
+
+が行けます
