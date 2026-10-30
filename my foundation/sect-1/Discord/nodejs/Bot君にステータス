@@ -1,0 +1,26 @@
+起動後に以下のコードを入れる
+//起動時
+client.once("ready", () => {
+
+    console.log(
+        `✅ ${client.user.tag} にログイン完了！`
+    );
+//ステータス設定
+    client.user.setPresence({
+        activities: [
+            {
+                name: "任意の文をいれてくだしあ",
+                type: ActivityType.****
+            }
+        ],
+        status: "online"
+    });
+
+});
+
+
+****には
+Playing　:何々をプレイ中
+Listening　：何々を再生中
+Watching　：何々を視聴中
+Competing　：何々に参戦中
