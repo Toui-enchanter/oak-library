@@ -1,17 +1,27 @@
-require('dotenv').config();//
+import { Client, GatewayIntentBits } from "discord.js";
+import dotenv from "dotenv";
 
-const { Client, GatewayIntentBits } = require('discord.js');
+dotenv.config();
+
 const client = new Client({
   intents: [
-    GatewayIntentBits.Guilds
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.MessageContent,
+    GatewayIntentBits.GuildMessages
   ]
 });
 
-client.once('ready', () => {
-  console.log(`Logged in as ${client.user.tag}`);
+client.once("ready", () => {
+  console.log(`✅ ログインしました: ${client.user.tag}`);
 });
 
-(ココに新しい機能のコードを書く)
+client.on("messageCreate", (message) => {
+  if (message.author.bot) return;
+
+  if (message.content === "!ping") {
+    message.reply("Pong!");
+  }
+});
 
 client.login(process.env.TOKEN);
 
