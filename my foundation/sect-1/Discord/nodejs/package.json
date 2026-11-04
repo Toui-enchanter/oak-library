@@ -1,13 +1,12 @@
 {
-  "name": "discord-bot",
+  "name": "my-discord-bot",
   "version": "1.0.0",
-  "description": "Discord bot running on Render",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
   "dependencies": {
-    "discord.js": "^14.15.2",
-    "dotenv": "^16.4.5"
+    "discord.js": "^14.14.0"
   }
 }
