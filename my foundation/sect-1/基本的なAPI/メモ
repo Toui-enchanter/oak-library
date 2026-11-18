@@ -1,0 +1,77 @@
+最も基本的な形は、情報を取得するGETリクエストです。
+// 指定したURLにリクエストを送信し、応答（レスポンス）を受け取る
+const response = UrlFetchApp.fetch("取得したい情報のURL");
+
+【実践】テストAPIでデータを取得してみよう
+.gs
+
+function getSampleData() {
+  // データを取得したいAPIのURL
+  const url = 'https://jsonplaceholder.typicode.com/posts/1';
+
+  // UrlFetchAppを使ってAPIにリクエストを送信
+  const response = UrlFetchApp.fetch(url);
+
+  // 取得したテキストデータをコンソールに出力して確認
+  Logger.log(response.getContentText());
+}
+
+実行すると以下のようなものが返ってくる
+
+{
+  "userId": 1,
+  "id": 1,
+  "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+  "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
+}
+
+
+このように{}や””で囲まれ、項目名と値がペアで記述されたテキストデータの形式を 
+JSON（JavaScript Object Notation）形式と呼びます。
+多くのAPIでは、このJSON形式でデータのやり取りが行われます。
+
+APIからの応答（レスポンス）を理解する
+
+UrlFetchApp.fetch() を実行すると、APIサーバーからの応答が「HTTPResponse」というオブジェクトで返ってきます。
+
+GASにおけるオブジェクトとは、{キー: 値} のように、名前（キー）と値がペアになったデータの集まりのことです。
+
+ここで、「さっき見たJSONと何が違うの？」と疑問に思うかもしれません。 
+重要な違いは、JSONはあくまで “テキスト（文字列）” であり、オブジェクトはGASが “プログラムの部品”として扱えるデータである、という点です。
+
+取得したJSON形式のテキストは、GASが扱えるオブジェクトに変換する作業が必要になります。
+
+HTTPResponseオブジェクトには、この処理に必要な命令（メソッド）が含まれています。
+
+getContentText()：先ほども使用した、応答の本体（ボディ）をテキスト形式で取得する命令です。APIから返されるデータの多くは、上記のような JSON（JavaScript Object Notation）形式のテキストです。
+getResponseCode()：応答のステータスコードを数値で取得します。リクエストが成功したか（200）、ページが見つからなかったか（404）などを判断できます。
+
+先ほどのコードを少し改造して、取得したJSONデータの中から「ユーザーID」「タイトル」「本文」を抽出し、スプレッドシートのA1セル、A2セル、A3セルにそれぞれ書き出してみましょう。
+function getAndSpreadData() {
+  const url = 'https://jsonplaceholder.typicode.com/posts/1';
+  const response = UrlFetchApp.fetch(url);
+
+  // ステータスコードが200（成功）の場合のみ処理を実行
+  if (response.getResponseCode() === 200) {
+    // JSONテキストをGASが扱えるオブジェクトに変換
+    const jsonData = JSON.parse(response.getContentText());
+
+    // 必要なデータを取り出す
+    const userId = jsonData.userId;
+    const title = jsonData.title;
+    const body = jsonData.body;
+
+    // スプレッドシートに書き出す
+    const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    sheet.getRange('A1').setValue(userId);
+    sheet.getRange('A2').setValue(title);
+    sheet.getRange('A3').setValue(body);
+
+  } else {
+    Logger.log('エラーが発生しました: ' + response.getResponseCode());
+  }
+}
+
+このコードの重要な点は JSON.parse() です。
+これが先程登場した「JSON形式のテキストをGASが扱えるオブジェクトに変換する」命令です。
+この命令を使うことで、JSONデータを jsonData.title のように中身を取り出せる便利なオブジェクト形式に変換しています。
